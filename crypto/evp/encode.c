@@ -141,6 +141,33 @@ static unsigned char conv_ascii2bin(unsigned char a)
 }
 #endif
 
+/********************************
+ *    PORTED FROM BORINGSSL     *
+ ********************************/
+int EVP_EncodedLength(size_t *out_len, size_t len) {
+	if (len + 2 < len) {
+		return 0;
+	}
+	len += 2;
+	len /= 3;
+
+	if (((len << 2) >> 2) != len) {
+		return 0;
+	}
+	len <<= 2;
+
+	if (len + 1 < len) {
+		return 0;
+	}
+	len++;
+
+	*out_len = len;
+	return 1;
+}
+/********************************
+ *  END PORTED FROM BORINGSSL   *
+ ********************************/
+
 void EVP_EncodeInit(EVP_ENCODE_CTX *ctx)
 {
     ctx->length = 48;

@@ -674,6 +674,13 @@ int EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
                  EVP_PKEY **pubk, int npubk);
 int EVP_SealFinal(EVP_CIPHER_CTX *ctx, unsigned char *out, int *outl);
 
+/********************************
+ *    PORTED FROM BORINGSSL     *
+ ********************************/
+int EVP_EncodedLength(size_t *out_len, size_t len);
+/********************************
+ *  END PORTED FROM BORINGSSL   *
+ ********************************/
 void EVP_EncodeInit(EVP_ENCODE_CTX *ctx);
 void EVP_EncodeUpdate(EVP_ENCODE_CTX *ctx, unsigned char *out, int *outl,
                       const unsigned char *in, int inl);
