@@ -441,6 +441,20 @@ BIGNUM *BN_copy(BIGNUM *a, const BIGNUM *b);
 void BN_swap(BIGNUM *a, BIGNUM *b);
 BIGNUM *BN_bin2bn(const unsigned char *s, int len, BIGNUM *ret);
 int BN_bn2bin(const BIGNUM *a, unsigned char *to);
+
+/********************************
+ *    PORTED FROM BORINGSSL     *
+ ********************************/
+/* BN_bn2bin_padded serialises the absolute value of |in| to |out| as a
+ * big-endian integer. The integer is padded with leading zeros up to size
+ * |len|. If |len| is smaller than |BN_num_bytes|, the function fails and
+ * returns 0. Otherwise, it returns 1.
+ * Ported from boringssl */
+int BN_bn2bin_padded(unsigned char *out, int len, const BIGNUM *in);
+/********************************
+ *  END PORTED FROM BORINGSSL   *
+ ********************************/
+
 BIGNUM *BN_mpi2bn(const unsigned char *s, int len, BIGNUM *ret);
 int BN_bn2mpi(const BIGNUM *a, unsigned char *to);
 int BN_sub(BIGNUM *r, const BIGNUM *a, const BIGNUM *b);
